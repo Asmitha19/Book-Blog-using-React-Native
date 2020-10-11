@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Review from './ReviewComponent';
 import Bookdetail from './BookdetailComponent';
+import Contact from './ContactComponent';
 import { View, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +11,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const HomeNavigator = createStackNavigator();
 const ReviewNavigator = createStackNavigator();
+const ContactNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 
 function HomeNavigatorScreen({ navigation }) {
@@ -70,6 +72,32 @@ function ReviewNavigatorScreen({ navigation }) {
     );
 }
 
+function ContactNavigatorScreen({ navigation }) {
+    return(
+        <ContactNavigator.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#D95D5D"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"
+                }
+            }}
+        >
+            <ContactNavigator.Screen
+                name="Contact"
+                component={Contact}
+                options={{
+                  headerTitle: "",
+                  headerLeft: () => <Icon name="menu" style={{marginLeft: 10}} size={24} color= 'white' onPress={ () => navigation.toggleDrawer() } />
+                }}
+            />
+
+        </ContactNavigator.Navigator>
+    );
+}
+
 function MainNavigatorScreen() {
     return(
         <MainNavigator.Navigator
@@ -104,6 +132,22 @@ function MainNavigatorScreen() {
                       name='pencil'
                       type='font-awesome'
                       size={24}
+                      color={tintColor}
+                    />
+                  )
+                }}
+            />
+            <MainNavigator.Screen
+                name="Contact Us"
+                component={ContactNavigatorScreen}
+                options={{
+                  headerTitle: 'Contact Us',
+                  drawerLabel: 'Contact Us',
+                  drawerIcon: ({ tintColor, focused }) => (
+                    <Icon
+                      name='address-card'
+                      type='font-awesome'
+                      size={16}
                       color={tintColor}
                     />
                   )
