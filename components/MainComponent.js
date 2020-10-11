@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
 import Review from './ReviewComponent';
+import Bookdetail from './BookdetailComponent';
 import { View, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
@@ -40,6 +41,7 @@ function HomeNavigatorScreen({ navigation }) {
 function ReviewNavigatorScreen({ navigation }) {
     return(
         <ReviewNavigator.Navigator
+            initialRouteName='Reviews'
             screenOptions={{
                 headerStyle: {
                     backgroundColor: "#D95D5D"
@@ -57,6 +59,11 @@ function ReviewNavigatorScreen({ navigation }) {
                   headerTitle: "Reviews",
                   headerLeft: () => <Icon name="menu" style={{marginLeft: 10}} size={24} color= 'white' onPress={ () => navigation.toggleDrawer() } />
                 }}
+            />
+            <ReviewNavigator.Screen
+                name="Bookdetail"
+                component={Bookdetail}
+                options={{ headerTitle: "Book Details"}}
             />
 
         </ReviewNavigator.Navigator>
