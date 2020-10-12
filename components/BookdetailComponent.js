@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Rating } from 'react-native-elements';
-import { REVIEWS } from '../shared/reviews';
-import { COMMENTS } from '../shared/comments';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+      reviews: state.reviews,
+      comments: state.comments
+    }
+}
 
 function RenderReview(props) {
 
@@ -12,7 +19,7 @@ function RenderReview(props) {
         return(
             <Card>
                 <Card.Title>{review.name}</Card.Title>
-                <Card.Image source={require('./images/review1.jpg')} />
+                <Card.Image source={{uri: baseUrl + review.image}} />
                 <Text style={{margin: 10}}>
                     {review.review}
                 </Text>
@@ -62,8 +69,6 @@ class Bookdetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            reviews: REVIEWS,
-            comments: COMMENTS
         };
     }
 
@@ -71,11 +76,11 @@ class Bookdetail extends Component {
         const reviewId = this.props.route.params.reviewId;
         return(
             <ScrollView>
-            <RenderReview review={this.state.reviews[+reviewId]} />
-            <RenderComments comments={this.state.comments.filter((comment) => comment.reviewId === reviewId)} />
+            <RenderReview review={this.props.reviews.reviews[+reviewId]} />
+            <RenderComments comments={this.props.comments.comments.filter((comment) => comment.reviewId === reviewId)} />
             </ScrollView>
         );
     }
 }
 
-export default Bookdetail;
+export default connect(mapStateToProps)(Bookdetail);

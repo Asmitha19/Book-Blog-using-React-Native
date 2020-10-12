@@ -3,17 +3,23 @@ import { View, Text, SafeAreaView, FlatList, ScrollView, Dimensions, Platform, S
 import { Card, ListItem, Avatar, Rating, Badge } from 'react-native-elements';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import { NEWS } from '../shared/news';
-import { LATEST } from '../shared/latest';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 
 const { width: screenWidth } = Dimensions.get('window')
+
+const mapStateToProps = state => {
+    return {
+      latest: state.latest
+    }
+}
 
 class Home extends Component {
 
     constructor(props) {
       super(props);
       this.state = {
-        news: NEWS,
-        latest: LATEST
+        news: NEWS
       };
     }
 
@@ -42,7 +48,7 @@ class Home extends Component {
             return(
                 <View>
                     <ListItem key = {index}>
-                        <Avatar size="large" source={{uri: item.image}} />
+                        <Avatar size="large" source={{uri: baseUrl + item.image}} />
                         <ListItem.Content>
                             <ListItem.Title>
                                 {item.name}
@@ -73,7 +79,7 @@ class Home extends Component {
                 />
                 <Card title = "New Releases" >
                     <FlatList
-                        data = {this.state.latest}
+                        data = {this.props.latest.latest}
                         renderItem = {renderLatest}
                         keyExtractor = {(item) => item.id.toString()}
                     />
@@ -101,4 +107,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default connect(mapStateToProps)(Home);

@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
-import { REVIEWS } from '../shared/reviews';
 import {Bookdetail} from './BookdetailComponent';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+      reviews: state.reviews
+    }
+  }
 
 class Review extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            reviews: REVIEWS
         };
     }
 
@@ -36,7 +42,7 @@ class Review extends Component {
                       key={index}
                       onPress={() => navigate('Bookdetail', { reviewId: item.id })}
                   >
-                      <Avatar size="large" source={{uri: item.image}} />
+                      <Avatar size="large" source={{uri: baseUrl + item.image}} />
                       <ListItem.Content>
                           <ListItem.Title>{item.name}</ListItem.Title>
                           <ListItem.Subtitle>{item.title}</ListItem.Subtitle>
@@ -50,7 +56,7 @@ class Review extends Component {
       const { navigate } = this.props.navigation;
       return (
           <FlatList
-              data={this.state.reviews}
+              data={this.props.reviews.reviews}
               renderItem={renderCommentItem}
               keyExtractor={item => item.id.toString()}
               />
@@ -61,4 +67,4 @@ class Review extends Component {
 }
 
 
-export default Review;
+export default connect(mapStateToProps)(Review);

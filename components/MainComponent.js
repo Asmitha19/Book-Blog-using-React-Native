@@ -9,6 +9,22 @@ import { Icon } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+import { connect } from 'react-redux';
+import { fetchReviews, fetchComments, fetchLatest } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+  return {
+    reviews: state.reviews,
+    comments: state.comments,
+    latest: state.latest
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchReviews: () => dispatch(fetchReviews()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchLatest: () => dispatch(fetchLatest())
+})
 
 const HomeNavigator = createStackNavigator();
 const ReviewNavigator = createStackNavigator();
@@ -220,10 +236,11 @@ function MainNavigatorScreen() {
 
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+
+  componentDidMount() {
+    this.props.fetchReviews();
+    this.props.fetchComments();
+    this.props.fetchLatest();
   }
 
   render() {
@@ -262,4 +279,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -26,6 +26,11 @@ export const commentsFailed = (errmess) => ({
     payload: errmess
 });
 
+export const addComments = (comments) => ({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+});
+
 export const fetchReviews = () => (dispatch) => {
 
     dispatch(reviewsLoading());
@@ -46,7 +51,7 @@ export const fetchReviews = () => (dispatch) => {
       })
     .then(response => response.json())
     .then(reviews => dispatch(addReviews(reviews)))
-    .catch(error => dispatch(dishesFailed(error.message)));
+    .catch(error => dispatch(reviewsFailed(error.message)));
 };
 
 export const reviewsLoading = () => ({
@@ -60,7 +65,7 @@ export const reviewsFailed = (errmess) => ({
 
 export const addReviews = (reviews) => ({
     type: ActionTypes.ADD_REVIEWS,
-    payload: dishes
+    payload: reviews
 });
 
 export const fetchLatest = () => (dispatch) => {
@@ -82,8 +87,8 @@ export const fetchLatest = () => (dispatch) => {
             throw errmess;
         })
     .then(response => response.json())
-    .then(latest => dispatch(addPromos(latest)))
-    .catch(error => dispatch(promosFailed(error.message)));
+    .then(latest => dispatch(addLatest(latest)))
+    .catch(error => dispatch(latestFailed(error.message)));
 };
 
 export const latestLoading = () => ({
@@ -96,6 +101,6 @@ export const latestFailed = (errmess) => ({
 });
 
 export const addLatest = (latest) => ({
-    type: ActionTypes.LATEST_PROMOS,
-    payload: promos
+    type: ActionTypes.ADD_LATEST,
+    payload: latest
 });
