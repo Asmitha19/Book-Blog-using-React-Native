@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, FlatList, ScrollView, Dimensions, Platform, StyleSheet, Linking } from 'react-native';
 import { Card, ListItem, Avatar, Rating, Badge } from 'react-native-elements';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import * as Animatable from 'react-native-animatable';
 import { Loading } from './LoadingComponent';
 import { NEWS } from '../shared/news';
 import { connect } from 'react-redux';
@@ -83,21 +84,23 @@ class Home extends Component {
         else {
             return (
                 <ScrollView>
-                    <Carousel
-                        sliderWidth={screenWidth}
-                        sliderHeight={screenWidth}
-                        itemWidth={screenWidth - 60}
-                        data={this.state.news}
-                        renderItem={renderItem}
-                        hasParallaxImages={true}
-                    />
-                    <Card title = "New Releases" >
-                        <FlatList
-                            data = {this.props.latest.latest}
-                            renderItem = {renderLatest}
-                            keyExtractor = {(item) => item.id.toString()}
+                    <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+                        <Carousel
+                            sliderWidth={screenWidth}
+                            sliderHeight={screenWidth}
+                            itemWidth={screenWidth - 60}
+                            data={this.state.news}
+                            renderItem={renderItem}
+                            hasParallaxImages={true}
                         />
-                    </Card>
+                        <Card title = "New Releases" >
+                            <FlatList
+                                data = {this.props.latest.latest}
+                                renderItem = {renderLatest}
+                                keyExtractor = {(item) => item.id.toString()}
+                            />
+                        </Card>
+                    </Animatable.View>
                 </ScrollView>
             );
         }

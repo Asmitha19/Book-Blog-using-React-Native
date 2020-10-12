@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 import {Bookdetail} from './BookdetailComponent';
 import { Loading } from './LoadingComponent';
 import { connect } from 'react-redux';
@@ -24,6 +25,7 @@ class Review extends Component {
 
         const renderCommentItem = ({item, index}) => {
             return (
+                <Animatable.View animation="fadeInLeft" duration={2000} delay={1000}>
                     <ListItem
                         key={index}
                         onPress={() => navigate('Bookdetail', { reviewId: item.id })}
@@ -35,6 +37,7 @@ class Review extends Component {
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
+                </Animatable.View>
             );
         };
 

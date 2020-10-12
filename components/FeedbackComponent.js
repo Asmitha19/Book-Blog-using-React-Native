@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, ScrollView, Image, Alert } from 'react-native';
 import { Icon, Input, Button } from 'react-native-elements';
+import * as Animatable from 'react-native-animatable';
 
 class Feedback extends Component {
 
@@ -32,54 +33,56 @@ class Feedback extends Component {
 
     render() {
         return(
-            <ScrollView>
-            <View style={styles.container}>
-                <Input
-                    placeholder="Username"
-                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
-                    placeholder="First Name"
-                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                    onChangeText={(firstname) => this.setState({firstname})}
-                    value={this.state.firstname}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
-                    placeholder="Last Name"
-                    leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                    onChangeText={(lastname) => this.setState({lastname})}
-                    value={this.state.lastname}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
-                    placeholder="Email"
-                    leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
-                    onChangeText={(email) => this.setState({email})}
-                    value={this.state.email}
-                    containerStyle={styles.formInput}
-                    />
-                <Input
-                    placeholder="Feedback"
-                    leftIcon={{ type: 'font-awesome', name: 'comment' }}
-                    onChangeText={(feedback) => this.setState({feedback})}
-                    value={this.state.feedback}
-                    containerStyle={styles.formInput}
-                    />
-                <View style={styles.formButton}>
-                    <Button
-                        onPress={() => this.handleRegister()}
-                        title="Submit"
-                        buttonStyle={{
-                            backgroundColor: "#D95D5D"
-                        }}
-                        />
-                </View>
-            </View>
-            </ScrollView>
+            <Animatable.View animation="fadeInDown" duration={2000} delay={500}>
+                <ScrollView>
+                    <View style={styles.container}>
+                        <Input
+                            placeholder="Username"
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            onChangeText={(username) => this.setState({username})}
+                            value={this.state.username}
+                            containerStyle={styles.formInput}
+                            />
+                        <Input
+                            placeholder="First Name"
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            onChangeText={(firstname) => this.setState({firstname})}
+                            value={this.state.firstname}
+                            containerStyle={styles.formInput}
+                            />
+                        <Input
+                            placeholder="Last Name"
+                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
+                            onChangeText={(lastname) => this.setState({lastname})}
+                            value={this.state.lastname}
+                            containerStyle={styles.formInput}
+                            />
+                        <Input
+                            placeholder="Email"
+                            leftIcon={{ type: 'font-awesome', name: 'envelope-o' }}
+                            onChangeText={(email) => this.setState({email})}
+                            value={this.state.email}
+                            containerStyle={styles.formInput}
+                            />
+                        <Input
+                            placeholder="Feedback"
+                            leftIcon={{ type: 'font-awesome', name: 'comment' }}
+                            onChangeText={(feedback) => this.setState({feedback})}
+                            value={this.state.feedback}
+                            containerStyle={styles.formInput}
+                            />
+                        <View style={styles.formButton}>
+                            <Button
+                                onPress={() => this.handleRegister()}
+                                title="Submit"
+                                buttonStyle={{
+                                    backgroundColor: "#D95D5D"
+                                }}
+                                />
+                        </View>
+                    </View>
+                </ScrollView>
+            </Animatable.View>
         );
     }
 }
