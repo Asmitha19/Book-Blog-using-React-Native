@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, FlatList, ScrollView, Dimensions, Platform, StyleSheet, Linking } from 'react-native';
 import { Card, ListItem, Avatar, Rating, Badge } from 'react-native-elements';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import { Loading } from './LoadingComponent';
 import { NEWS } from '../shared/news';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -67,25 +68,39 @@ class Home extends Component {
             );
         };
 
-        return (
-            <ScrollView>
-                <Carousel
-                    sliderWidth={screenWidth}
-                    sliderHeight={screenWidth}
-                    itemWidth={screenWidth - 60}
-                    data={this.state.news}
-                    renderItem={renderItem}
-                    hasParallaxImages={true}
-                />
-                <Card title = "New Releases" >
-                    <FlatList
-                        data = {this.props.latest.latest}
-                        renderItem = {renderLatest}
-                        keyExtractor = {(item) => item.id.toString()}
+        if (this.props.latest.isLoading) {
+            return(
+                <Loading />
+            );
+        }
+        else if (this.props.latest.errMess) {
+            return(
+                <View>
+                    <Text>{this.props.latest.erreMess}</Text>
+                </View>
+            );
+        }
+        else {
+            return (
+                <ScrollView>
+                    <Carousel
+                        sliderWidth={screenWidth}
+                        sliderHeight={screenWidth}
+                        itemWidth={screenWidth - 60}
+                        data={this.state.news}
+                        renderItem={renderItem}
+                        hasParallaxImages={true}
                     />
-                </Card>
-            </ScrollView>
-        );
+                    <Card title = "New Releases" >
+                        <FlatList
+                            data = {this.props.latest.latest}
+                            renderItem = {renderLatest}
+                            keyExtractor = {(item) => item.id.toString()}
+                        />
+                    </Card>
+                </ScrollView>
+            );
+        }
     }
 }
 
